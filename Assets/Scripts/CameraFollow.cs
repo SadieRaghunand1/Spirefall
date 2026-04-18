@@ -10,9 +10,13 @@ public class CameraFollow : MonoBehaviour
         
     }
 
+    //OLD
     // Update is called once per frame
-    void Update()
+    /*void Update()
     {
         transform.position = playerPos.position + offset;
-    }
+    }*/
+
+    //NEW
+    //Removed code, camera now moves based on its attachement to the player object
 }

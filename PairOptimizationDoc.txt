@@ -1,0 +1,14 @@
+Spirefall
+
+Developer: Ovidio Juan
+
+Reviewer: Sadie Raghunand
+
+Optimizations:
+
+1.
+2.
+3.
+
+Other changes
+1. Canvas set to scale with screen size
