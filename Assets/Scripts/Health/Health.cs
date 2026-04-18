@@ -74,9 +74,14 @@ public class Health : MonoBehaviour
         //Destroy(gameObject); // Or disable/pool the object
 
         //NEW
-        if(isPlayer)
+        if (isPlayer)
             playerRenderer.enabled = false;
         else
+        {
+           // transform.position = spaw
             gameObject.SetActive(false);
+            
+        }
+            
     }
 }

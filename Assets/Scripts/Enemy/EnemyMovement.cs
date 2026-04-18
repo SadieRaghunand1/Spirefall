@@ -1,3 +1,5 @@
+using System;
+using System.Collections;
 using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
@@ -14,24 +16,28 @@ public class EnemyMovement : MonoBehaviour
 
     [Header("Level Reference")]
     public LevelGenerator levelData;
+    [SerializeField] private WaveManager waveManager;
 
     private EnemyState currentState = EnemyState.MovingForward;
     private Shipmovement playerScript; // Reference to track player position
     private float nextHopTime = 0f;
 
+    
     void Start()
     {
-        if (levelData == null) levelData = Object.FindFirstObjectByType<LevelGenerator>();
-        playerScript = Object.FindFirstObjectByType<Shipmovement>(); // Find player to chase later
+        
+        if (levelData == null) levelData = UnityEngine.Object.FindFirstObjectByType<LevelGenerator>();
+        playerScript = UnityEngine.Object.FindFirstObjectByType<Shipmovement>(); // Find player to chase later
 
-        if (levelData != null && levelData.EdgeOffsets != null)
+        //OLD
+        /*if (levelData != null && levelData.EdgeOffsets != null)
         {
             SnapToCurrentLane();
         }
         else
         {
             Debug.LogError("LevelGenerator not found or not initialized!");
-        }
+        }*/
     }
 
     void Update()
@@ -115,5 +121,31 @@ public class EnemyMovement : MonoBehaviour
             transform.position = new Vector3(transform.position.x, transform.position.y, other.transform.position.z);
             SnapToCurrentLane(); // Re-snap just in case
         }
+    }
+
+
+
+    //NEW
+    public void RestartBehavior()
+    {
+        if (levelData != null && levelData.EdgeOffsets != null)
+        {
+            SnapToCurrentLane();
+        }
+        else
+        {
+            Debug.LogError("LevelGenerator not found or not initialized!");
+        }
+
+
+        StartCoroutine(ReturnAfterTime());
+    }
+
+    IEnumerator ReturnAfterTime()
+    {
+        yield return new WaitForSeconds(5);
+        waveManager.AddAndRemoveEnemeies(false, this.gameObject);
+        gameObject.SetActive(false);
+        
     }
 }

@@ -10,20 +10,20 @@ public class WaveManager : MonoBehaviour
     public EnemySpawner enemySpawner;
     public GameObject enemyPrefab;
     public TextMeshProUGUI waveText;
-    
+
     // ADDED: Reference to the level generator
     public LevelGenerator levelGenerator;
 
     [Header("Infinite Wave Settings")]
     public float timeBetweenWaves = 5f;
-    
+
     [Tooltip("How many enemies spawn on Wave 1")]
     public int baseEnemyCount = 3;
     [Tooltip("How many additional enemies are added each wave")]
     public int additionalEnemiesPerWave = 2;
 
     [Tooltip("How many enemies spawn per second on Wave 1")]
-    public float baseSpawnRate = 1f; 
+    public float baseSpawnRate = 1f;
     [Tooltip("How much faster the spawn rate gets each wave")]
     public float spawnRateIncreasePerWave = 0.2f;
 
@@ -32,7 +32,7 @@ public class WaveManager : MonoBehaviour
 
     private int currentWaveIndex = 0;
     private bool isSpawning = false;
-    
+
     private List<GameObject> activeEnemies = new List<GameObject>();
 
     private void Start()
@@ -62,78 +62,39 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator StartNextWave()
     {
-        #region Working on new non-update optimization
-        //NEW
-        /*if (activeEnemies.Count == 0)
-        {
-            isSpawning = true;
-            currentWaveIndex++;
 
-            // 1. RANDOMIZE THE LEVEL FIRST
-            // This ensures new lane coordinates are locked in BEFORE spawners try to place objects
-            if (levelGenerator != null && currentWaveIndex > 1)
-            {
-                levelGenerator.RandomizeLevel();
-            }
-
-            // 2. NOW announce the wave has started
-            OnWaveStarted?.Invoke(currentWaveIndex);
-            Debug.Log($"Starting Wave {currentWaveIndex}!");
-
-            if (waveText != null)
-                waveText.text = $"Wave {currentWaveIndex}";
-
-            // 3. Wait for the standard wave delay
-            yield return new WaitForSeconds(timeBetweenWaves);
-
-            int enemyCountThisWave = baseEnemyCount + (additionalEnemiesPerWave * (currentWaveIndex - 1));
-            float spawnRateThisWave = baseSpawnRate + (spawnRateIncreasePerWave * (currentWaveIndex - 1));
-
-            for (int i = 0; i < enemyCountThisWave; i++)
-            {
-                SpawnEnemy(enemyPrefab);
-                yield return new WaitForSeconds(1f / spawnRateThisWave);
-            }
-
-            isSpawning = false;
-        }*/
-
-#endregion
         //OLD
         isSpawning = true;
-            currentWaveIndex++;
+        currentWaveIndex++;
 
-            // 1. RANDOMIZE THE LEVEL FIRST
-            // This ensures new lane coordinates are locked in BEFORE spawners try to place objects
-            if (levelGenerator != null && currentWaveIndex > 1)
-            {
-                levelGenerator.RandomizeLevel();
-            }
+        // 1. RANDOMIZE THE LEVEL FIRST
+        // This ensures new lane coordinates are locked in BEFORE spawners try to place objects
+        if (levelGenerator != null && currentWaveIndex > 1)
+        {
+            levelGenerator.RandomizeLevel();
+        }
 
-            // 2. NOW announce the wave has started
-            OnWaveStarted?.Invoke(currentWaveIndex);
-            Debug.Log($"Starting Wave {currentWaveIndex}!");
+        // 2. NOW announce the wave has started
+        OnWaveStarted?.Invoke(currentWaveIndex);
+        Debug.Log($"Starting Wave {currentWaveIndex}!");
 
-            if (waveText != null)
-                waveText.text = $"Wave {currentWaveIndex}";
+        if (waveText != null)
+            waveText.text = $"Wave {currentWaveIndex}";
 
-            // 3. Wait for the standard wave delay
-            yield return new WaitForSeconds(timeBetweenWaves);
+        // 3. Wait for the standard wave delay
+        yield return new WaitForSeconds(timeBetweenWaves);
 
-            int enemyCountThisWave = baseEnemyCount + (additionalEnemiesPerWave * (currentWaveIndex - 1));
-            float spawnRateThisWave = baseSpawnRate + (spawnRateIncreasePerWave * (currentWaveIndex - 1));
+        int enemyCountThisWave = baseEnemyCount + (additionalEnemiesPerWave * (currentWaveIndex - 1));
+        float spawnRateThisWave = baseSpawnRate + (spawnRateIncreasePerWave * (currentWaveIndex - 1));
 
-            for (int i = 0; i < enemyCountThisWave; i++)
-            {
-                SpawnEnemy(enemyPrefab);
-                yield return new WaitForSeconds(1f / spawnRateThisWave);
-            }
+        for (int i = 0; i < enemyCountThisWave; i++)
+        {
+            SpawnEnemy(enemyPrefab);
+            yield return new WaitForSeconds(1f / spawnRateThisWave);
+        }
 
-            isSpawning = false;
+        isSpawning = false;
 
-            //NEW
-            //activeEnemies.RemoveAll(enemy => enemy == null);
-        //StartCoroutine(StartNextWave()); //Stack overflow
     }
 
     private void SpawnEnemy(GameObject prefab)
@@ -142,7 +103,17 @@ public class WaveManager : MonoBehaviour
 
         if (spawnedEnemy != null)
         {
-            activeEnemies.Add(spawnedEnemy);
+            //activeEnemies.Add(spawnedEnemy);
+            AddAndRemoveEnemeies(true, spawnedEnemy);
         }
+    }
+
+    //NEW
+    public void AddAndRemoveEnemeies(bool addEn, GameObject enemyOb)
+    {
+        if (addEn)
+            activeEnemies.Add(enemyOb);
+        else
+            activeEnemies.Remove(enemyOb);
     }
 }

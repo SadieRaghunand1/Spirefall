@@ -38,6 +38,7 @@ public class EnemySpawner : MonoBehaviour
             if (!enemyPool[i].activeInHierarchy)
             {
                 newEnemy = enemyPool[i];
+                newEnemy.transform.position = spawnPos;
                 newEnemy.SetActive(true);
                 break;
             }
@@ -52,7 +53,8 @@ public class EnemySpawner : MonoBehaviour
         if (enemyScript != null)
         {
             enemyScript.currentLane = randomLane;
-            enemyScript.levelData = this.levelData; 
+            enemyScript.levelData = this.levelData;
+            enemyScript.RestartBehavior();
         }
 
         // Return the newly created enemy

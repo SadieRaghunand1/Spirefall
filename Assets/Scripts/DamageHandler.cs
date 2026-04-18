@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class DamageHandler : MonoBehaviour
@@ -6,6 +7,9 @@ public class DamageHandler : MonoBehaviour
     public string targetTag = ""; // Set this in inspector
 
     public bool DestroyOnHit = true; // Optional: Destroy the object after dealing damage
+
+    [SerializeField] private WaveManager waveManager;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag(targetTag)) //Check ffor more optimized?
@@ -26,8 +30,11 @@ public class DamageHandler : MonoBehaviour
                 //OLD
                 //Destroy(gameObject);
                 //NEW
+                waveManager.AddAndRemoveEnemeies(false, this.gameObject);
                 gameObject.SetActive(false);
+
             }
         }
     }
+
 }
