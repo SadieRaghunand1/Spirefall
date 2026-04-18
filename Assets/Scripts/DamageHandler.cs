@@ -8,7 +8,7 @@ public class DamageHandler : MonoBehaviour
     public bool DestroyOnHit = true; // Optional: Destroy the object after dealing damage
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag(targetTag))
+        if (other.CompareTag(targetTag)) //Check ffor more optimized?
         {
            
             // Try to find the Health component on the object we collided with
@@ -23,7 +23,10 @@ public class DamageHandler : MonoBehaviour
             if (DestroyOnHit)
             {
                 Debug.Log($"DESTROYED");
-                Destroy(gameObject);
+                //OLD
+                //Destroy(gameObject);
+                //NEW
+                gameObject.SetActive(false);
             }
         }
     }

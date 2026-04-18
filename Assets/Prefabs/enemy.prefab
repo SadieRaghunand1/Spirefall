@@ -83,10 +83,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5382114799420412245}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -136,6 +136,7 @@ MonoBehaviour:
   scoreValue: 10
   takeDamageSound: {fileID: 8300000, guid: a6c74e1cf9d10604aba1ee56d54d8dc4, type: 3}
   deathSound: {fileID: 8300000, guid: a6c74e1cf9d10604aba1ee56d54d8dc4, type: 3}
+  playerRenderer: {fileID: 3604658739109720335}
   OnDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -234,5 +235,10 @@ PrefabInstance:
 --- !u!4 &2471771248707471968 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 9ede83b74dff8ff4db2a76963ec0921f, type: 3}
+  m_PrefabInstance: {fileID: 2722364022854184331}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3604658739109720335 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 9ede83b74dff8ff4db2a76963ec0921f, type: 3}
   m_PrefabInstance: {fileID: 2722364022854184331}
   m_PrefabAsset: {fileID: 0}

@@ -19,6 +19,7 @@ public class Health : MonoBehaviour
 
     [Header("Rendering")]
     [SerializeField] private Renderer playerRenderer;
+    [SerializeField] private bool isPlayer;
 
     // Optional: Events to trigger UI updates, death animations, etc.
     public UnityEvent OnDeath; 
@@ -73,6 +74,9 @@ public class Health : MonoBehaviour
         //Destroy(gameObject); // Or disable/pool the object
 
         //NEW
-        playerRenderer.enabled = false;
+        if(isPlayer)
+            playerRenderer.enabled = false;
+        else
+            gameObject.SetActive(false);
     }
 }

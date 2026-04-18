@@ -5,6 +5,9 @@ public class EnemySpawner : MonoBehaviour
     [Header("Level Reference")]
     public LevelGenerator levelData;
 
+    [Header("Enemy Pool")]
+    [SerializeField] private GameObject[] enemyPool;
+
     void Start()
     {
         if (levelData == null) 
@@ -24,8 +27,26 @@ public class EnemySpawner : MonoBehaviour
 
         int randomLane = Random.Range(0, levelData.polygonSides);
         Vector3 spawnPos = new Vector3(0, 0, levelData.tubeLength);
-        
-        GameObject newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+
+        //OLD
+        // GameObject newEnemy = Instantiate(enemyPrefab, spawnPos, Quaternion.identity);
+
+        //NEW
+        GameObject newEnemy = null;
+        for(int i = 0; i < enemyPool.Length; i++)
+        {
+            if (!enemyPool[i].activeInHierarchy)
+            {
+                newEnemy = enemyPool[i];
+                newEnemy.SetActive(true);
+                break;
+            }
+        }
+
+        if(newEnemy == null)
+        {
+            return null;
+        }
 
         EnemyMovement enemyScript = newEnemy.GetComponent<EnemyMovement>();
         if (enemyScript != null)
