@@ -20,17 +20,37 @@ public class Shipmovement : MonoBehaviour
     {
         if (levelData == null) levelData = Object.FindFirstObjectByType<LevelGenerator>();
 
-        if (levelData != null && levelData.EdgeOffsets != null && levelData.EdgeOffsets.Length > 0)
+        //NEW Try-catch block
+        try
         {
-            Vector3 startPos = new Vector3(levelData.centerPoint.x + levelData.EdgeOffsets[currentIndex].x, levelData.centerPoint.y + levelData.EdgeOffsets[currentIndex].y, transform.position.z);
-            transform.position = startPos;
-            transform.rotation = levelData.EdgeRotations[currentIndex];
+            //OLD
+            //if (moveAction == null || moveAction.action == null) return;
+            //NEW, trigger catch if moveAction is null
+            if (moveAction.action == null) return;
+
+            //OLD
+            //if (levelData != null && levelData.EdgeOffsets != null && levelData.EdgeOffsets.Length > 0)
+            //NEW
+            if (levelData.EdgeOffsets != null && levelData.EdgeOffsets.Length > 0)
+            {
+                Vector3 startPos = new Vector3(levelData.centerPoint.x + levelData.EdgeOffsets[currentIndex].x, levelData.centerPoint.y + levelData.EdgeOffsets[currentIndex].y, transform.position.z);
+                transform.position = startPos;
+                transform.rotation = levelData.EdgeRotations[currentIndex];
+            }
         }
+        catch
+        {
+            Debug.LogError("Move action is null\n" + UnityEngine.StackTraceUtility.ExtractStackTrace());
+        }
+        
+
+        
     }
 
     void Update()
     {
-        if (levelData == null || levelData.EdgeOffsets == null) return;
+        //OLD
+        //if (levelData == null || levelData.EdgeOffsets == null) return;
 
         HandleInput();
         SmoothSnapTransform();
@@ -38,7 +58,8 @@ public class Shipmovement : MonoBehaviour
 
     private void HandleInput()
     {
-        if (moveAction == null || moveAction.action == null) return;
+        //OLD
+        //if (moveAction == null || moveAction.action == null) return;
         
         Vector2 moveInput = moveAction.action.ReadValue<Vector2>();
 

@@ -32,10 +32,12 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    private void Update()
+    //OLD
+   /* private void Update()
     {
         // Don't allow pausing if the player is already dead
-        if (isGameOver) return;
+        //OLD
+        //if (isGameOver) return;
 
         // Toggle pause menu with the Escape key
         /*   if (Input.GetKeyDown(KeyCode.Escape))
@@ -48,9 +50,8 @@ public class MenuManager : MonoBehaviour
                  {
                      PauseGame();
                  }
-             }*/
-    }
-
+             }
+    }*/
     // --- STATE HANDLING ---
 
     private void HandlePlayerDeath()
@@ -68,8 +69,13 @@ public class MenuManager : MonoBehaviour
             {
                 if (ps != null)
                 {
+                    //OLD
+                    /*
                     var main = ps.main;
-                    main.useUnscaledTime = true;
+                    main.useUnscaledTime = true;*/
+
+                    //NEW
+                    ps.Stop();
                 }
             }
         }

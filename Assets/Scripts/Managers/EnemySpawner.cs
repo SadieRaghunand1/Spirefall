@@ -13,10 +13,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // Changed from void to GameObject
-    public GameObject SpawnEnemy(GameObject enemyPrefab)
+    // Changed from void to GameObje0ct
+    //NEW - Made enemyPrefab an optional parameter
+    public GameObject SpawnEnemy(GameObject enemyPrefab = null)
     {
-        if (levelData == null || enemyPrefab == null) return null;
+        //OLD
+        //if (levelData == null || enemyPrefab == null) return null;
+        //NEW
+        if (enemyPrefab == null) return null;
 
         int randomLane = Random.Range(0, levelData.polygonSides);
         Vector3 spawnPos = new Vector3(0, 0, levelData.tubeLength);

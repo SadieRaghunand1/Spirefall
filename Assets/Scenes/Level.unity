@@ -208,6 +208,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99dfa31627bcf014091ca2af3a2ebff2, type: 3}
+--- !u!23 &189392558 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -7511558181221131132, guid: 99dfa31627bcf014091ca2af3a2ebff2, type: 3}
+  m_PrefabInstance: {fileID: 189392557}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -12345,6 +12350,10 @@ PrefabInstance:
       propertyPath: deathSound
       value: 
       objectReference: {fileID: 8300000, guid: dacf235c3467d8443821a3877a8021ba, type: 3}
+    - target: {fileID: 7392232647734282268, guid: 32af76467a1f7cd46884c1eb57530365, type: 3}
+      propertyPath: playerRenderer
+      value: 
+      objectReference: {fileID: 189392558}
     - target: {fileID: 7392232647734282268, guid: 32af76467a1f7cd46884c1eb57530365, type: 3}
       propertyPath: takeDamageSound
       value: 

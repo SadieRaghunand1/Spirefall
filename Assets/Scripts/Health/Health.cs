@@ -1,6 +1,7 @@
-using Unity.VisualScripting;
+
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Health : MonoBehaviour
@@ -15,6 +16,9 @@ public class Health : MonoBehaviour
     [Header("Audio")]
     public AudioClip takeDamageSound;
     public AudioClip deathSound;
+
+    [Header("Rendering")]
+    [SerializeField] private Renderer playerRenderer;
 
     // Optional: Events to trigger UI updates, death animations, etc.
     public UnityEvent OnDeath; 
@@ -65,6 +69,10 @@ public class Health : MonoBehaviour
         if(deathSound != null) { AudioManager.PlaySFX(deathSound); }
         if (scoreValue > 0 && ScoreManager.Instance != null) { ScoreManager.Instance.AddScore(scoreValue); }
         OnDeath?.Invoke();
-        Destroy(gameObject); // Or disable/pool the object
+        //OLD
+        //Destroy(gameObject); // Or disable/pool the object
+
+        //NEW
+        playerRenderer.enabled = false;
     }
 }

@@ -5,10 +5,9 @@ Developer: Ovidio Juan
 Reviewer: Sadie Raghunand
 
 Optimizations:
-
-1.
-2.
-3.
+1. Camera was setting its position based on the player's position plus an offset in update.  This was removed and the camera follow script was set inactive on the camera and the camera was instead made a child of the player object.
+2.Remove check for if levelData and edge offsets are null in update in Ship Movement script.  Remove check for null move actions as well in update.  Level data is already checked for in the Start function and is not removed at any point during the game. Added a null check and try-catch block in the start function for the move action, since the game is unable to be played if this is null and checking/returning every time its null during runtime is therefore useless and would result in an unplayable build.
+3.Handling end game behavior.  In the Menu Manager, there was a check on update that checked if the game was over, which was removed.  When the game ended, the unscaled time for the particle systems is also set to true as a part of the freezing functionality. This was changed to use ParticleSystem.Stop() for ease of use.  This also allows them to be set to play later on if the game were to be expanded to need that functionality.  In the Health script, the player is destroyed when they die.  This was changed to disable the renderer on the player's object.
 
 Other changes
 1. Canvas set to scale with screen size
