@@ -33,7 +33,8 @@ public class Shipmovement : MonoBehaviour
             //NEW
             if (levelData.EdgeOffsets != null && levelData.EdgeOffsets.Length > 0)
             {
-                Vector3 startPos = new Vector3(levelData.centerPoint.x + levelData.EdgeOffsets[currentIndex].x, levelData.centerPoint.y + levelData.EdgeOffsets[currentIndex].y, transform.position.z);
+                Vector3 startPos = new Vector3(levelData.centerPoint.x + levelData.EdgeOffsets[currentIndex].x, 
+                    levelData.centerPoint.y + levelData.EdgeOffsets[currentIndex].y, transform.position.z);
                 transform.position = startPos;
                 transform.rotation = levelData.EdgeRotations[currentIndex];
             }
